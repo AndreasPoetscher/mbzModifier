@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<project default="test" name="mbzModifier">
+
+  <property name="debuglevel" value="source,lines,vars"/> 
+  <property name="src.dir" value="src"/> 
+  <property name="bin.dir" value="bin"/>  <!-- Compile directory -->
+
+  <path id="project.classpath">
+    <pathelement location="${bin.dir}"/>
+  </path>
+
+  <!-- Deletes all the garbage -->
+  <target name="clean">
+    <delete dir="${bin.dir}"/>
+  </target>
+  
+  <!-- Initialize the build environment-->
+  <target name="init">
+    <mkdir dir="${bin.dir}"/>
+  </target>
+
+  <!-- builds the project -->
+  <target name="compile" depends="init">
+    <javac debug="true" debuglevel="${debuglevel}" destdir="${bin.dir}" includeantruntime="false">
+      <src path="${src.dir}"/>
+      <classpath refid="project.classpath"/>
+    </javac>
+  </target>
+
+  <!-- Runs the testcases -->
+  <target name="test" depends="compile">
+
+    <!-- and run them --> 
+    <junit printsummary="yes" haltonfailure="no">
+      <classpath refid="project.classpath" />
+      <classpath location="${bin.dir}" />
+    </junit>
+  </target>
+
+</project>
